@@ -52,11 +52,14 @@ body.light-mode {
 body.light-mode body::before { display: none; }
 body.light-mode #scanline { display: none; }
 
-/* Font scale */
-body { font-size: 14px; }
-body.text-sm { font-size: 11px; }
-body.text-md { font-size: 14px; }
-body.text-lg { font-size: 17px; }
+/* Font scale — controlled by slider */
+body { font-size: 15px; }
+
+/* Base text bumped up for readability */
+.upgrade-name { font-size: 0.95em; color: var(--glow); }
+.upgrade-desc { font-size: 0.8em; color: #8aaccc; grid-column: 1; line-height: 1.5; }
+.upgrade-owned { font-size: 0.8em; color: #8aaccc; text-align: right; }
+.upgrade-cost { font-family: 'Orbitron', sans-serif; font-size: 0.85em; color: var(--gold); text-align: right; }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -225,27 +228,45 @@ h1 {
 .theme-btn:hover { border-color: var(--glow); }
 .theme-btn.active { border-color: var(--glow); background: rgba(0,212,255,0.1); color: var(--glow); }
 
-/* TEXT SIZE */
-.size-toggle {
+/* TEXT SIZE SLIDER */
+.size-slider-wrap {
   display: flex;
-  gap: 8px;
+  flex-direction: column;
+  gap: 6px;
 }
-.size-btn {
-  flex: 1;
-  padding: 8px;
-  border: 1px solid var(--border);
-  border-radius: 3px;
-  background: transparent;
-  color: var(--text);
-  font-family: 'Share Tech Mono', monospace;
+.size-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--border);
+  outline: none;
   cursor: pointer;
-  transition: all 0.2s;
 }
-.size-btn:nth-child(1) { font-size: 0.6rem; }
-.size-btn:nth-child(2) { font-size: 0.75rem; }
-.size-btn:nth-child(3) { font-size: 0.9rem; }
-.size-btn:hover { border-color: var(--glow); }
-.size-btn.active { border-color: var(--glow); background: rgba(0,212,255,0.1); color: var(--glow); }
+.size-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--glow);
+  box-shadow: 0 0 8px var(--glow);
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+}
+.size-slider::-webkit-slider-thumb:hover { box-shadow: 0 0 16px var(--glow); }
+.size-slider::-moz-range-thumb {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--glow);
+  box-shadow: 0 0 8px var(--glow);
+  cursor: pointer;
+  border: none;
+}
+.size-slider-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.6em;
+  color: var(--dim);
+}
 
 /* SAVE BUTTONS */
 .save-btn {
@@ -404,8 +425,8 @@ body.light-mode .upgrade-btn { background: rgba(200,220,240,0.4); }
   animation: adv-glow 4s ease-in-out infinite;
 }
 @keyframes adv-glow { 0%,100% { box-shadow: 0 0 15px rgba(123,47,255,0.4); } 50% { box-shadow: 0 0 30px rgba(123,47,255,0.8); } }
-#advisor-name { font-family: 'Orbitron', sans-serif; font-size: 0.6em; color: var(--glow2); letter-spacing: 0.15em; margin-bottom: 8px; }
-#advisor-text { font-size: 0.72em; color: var(--text); line-height: 1.6; min-height: 60px; transition: opacity 0.4s; }
+#advisor-name { font-family: 'Orbitron', sans-serif; font-size: 0.7em; color: var(--glow2); letter-spacing: 0.15em; margin-bottom: 8px; }
+#advisor-text { font-size: 0.9em; color: var(--text); line-height: 1.7; min-height: 60px; transition: opacity 0.4s; }
 
 /* EVENT LOG */
 #events-list {
@@ -414,7 +435,7 @@ body.light-mode .upgrade-btn { background: rgba(200,220,240,0.4); }
   display: flex; flex-direction: column; gap: 6px;
 }
 .event-entry {
-  font-size: 0.65em; padding: 8px;
+  font-size: 0.82em; padding: 8px;
   border-left: 2px solid var(--glow2);
   background: rgba(123,47,255,0.05);
   border-radius: 0 2px 2px 0;
@@ -429,7 +450,7 @@ body.light-mode .upgrade-btn { background: rgba(200,220,240,0.4); }
 /* MILESTONES */
 #milestones-list { display: flex; flex-direction: column; gap: 6px; }
 .milestone {
-  font-size: 0.65em; padding: 6px 8px;
+  font-size: 0.82em; padding: 6px 8px;
   border: 1px solid var(--border); border-radius: 2px;
   opacity: 0.35; transition: opacity 0.5s, border-color 0.5s;
 }
@@ -496,11 +517,10 @@ footer { grid-column: 1 / -1; padding: 10px; border-top: 1px solid var(--border)
 
     <!-- TEXT SIZE -->
     <div class="settings-section">
-      <span class="settings-label">Text Size</span>
-      <div class="size-toggle">
-        <button class="size-btn" id="btn-sm" onclick="setTextSize('sm')">SMALL</button>
-        <button class="size-btn active" id="btn-md" onclick="setTextSize('md')">MEDIUM</button>
-        <button class="size-btn" id="btn-lg" onclick="setTextSize('lg')">LARGE</button>
+      <span class="settings-label">Text Size — <span id="size-label">Medium</span></span>
+      <div class="size-slider-wrap">
+        <input type="range" class="size-slider" id="text-size-slider" min="11" max="22" value="15" step="1" oninput="applyTextSize(this.value)">
+        <div class="size-slider-labels"><span>Small</span><span>Medium</span><span>Large</span><span>XL</span></div>
       </div>
     </div>
 
@@ -691,18 +711,24 @@ function loadTheme() {
 }
 
 // ---- TEXT SIZE ----
-function setTextSize(size) {
-  document.body.classList.remove('text-sm', 'text-md', 'text-lg');
-  document.body.classList.add('text-' + size);
-  document.getElementById('btn-sm').classList.toggle('active', size === 'sm');
-  document.getElementById('btn-md').classList.toggle('active', size === 'md');
-  document.getElementById('btn-lg').classList.toggle('active', size === 'lg');
-  localStorage.setItem('deepmind_textsize', size);
+function applyTextSize(px) {
+  px = parseInt(px);
+  document.body.style.fontSize = px + 'px';
+  localStorage.setItem('deepmind_fontsize', px);
+  const slider = document.getElementById('text-size-slider');
+  if (slider) slider.value = px;
+  const label = document.getElementById('size-label');
+  if (label) {
+    if (px <= 12) label.textContent = 'Small';
+    else if (px <= 15) label.textContent = 'Medium';
+    else if (px <= 18) label.textContent = 'Large';
+    else label.textContent = 'Extra Large';
+  }
 }
 
 function loadTextSize() {
-  const s = localStorage.getItem('deepmind_textsize') || 'md';
-  setTextSize(s);
+  const saved = parseInt(localStorage.getItem('deepmind_fontsize')) || 15;
+  applyTextSize(saved);
 }
 
 // ---- DOWNLOAD SAVE ----
