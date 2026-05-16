@@ -89,13 +89,13 @@ body::before {
   opacity: 0.4;
 }
 
-/* LAYOUT */
+/* LAYOUT B — big button left, everything stacked right */
 #app {
   position: relative; z-index: 1;
   max-width: 1400px; margin: 0 auto;
   padding: 8px;
   display: grid;
-  grid-template-columns: 1fr 360px;
+  grid-template-columns: 1fr;
   grid-template-rows: auto 1fr auto;
   gap: 8px;
   height: 100vh;
@@ -109,6 +109,50 @@ header {
   padding: 8px;
   border-bottom: 1px solid var(--border);
   position: relative;
+}
+
+/* Main content area: button left + right stacked */
+#main-content {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 8px;
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* Left column: resources + big button + advisor */
+#left-col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+/* Right column: two rows — upgrades top, events+milestones+stats bottom */
+#right-col {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 8px;
+  overflow: hidden;
+  min-height: 0;
+}
+
+#right-top {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  overflow: hidden;
+  min-height: 0;
+}
+
+#right-bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  overflow: hidden;
+  min-height: 0;
 }
 
 /* GEAR BUTTON */
@@ -322,22 +366,33 @@ h1 {
 #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
 /* PANELS */
-#main-panel {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+/* Upgrades fill the right-top area */
+#upgrades-list {
+  display: flex; flex-direction: column; gap: 5px;
   overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: var(--border) transparent;
+  flex: 1;
+  scrollbar-width: thin; scrollbar-color: var(--border) transparent;
 }
 
-#sidebar {
+#upgrades-panel {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  overflow: hidden;
+}
+
+/* Events, milestones, stats fill right-bottom */
+#events-list {
   overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: var(--border) transparent;
+  flex: 1;
+  scrollbar-width: thin; scrollbar-color: var(--border) transparent;
+  display: flex; flex-direction: column; gap: 6px;
+}
+
+#milestones-list {
+  overflow-y: auto;
+  flex: 1;
+  display: flex; flex-direction: column; gap: 4px;
+  scrollbar-width: thin; scrollbar-color: var(--border) transparent;
 }
 
 .panel {
@@ -348,6 +403,9 @@ h1 {
   position: relative;
   overflow: hidden;
   transition: background 0.3s, border-color 0.3s;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 .panel::before {
   content: '';
@@ -372,9 +430,18 @@ h1 {
 .resource-rate { font-size: 0.65em; color: var(--green); }
 
 /* CLICK BUTTON */
-#click-zone { text-align: center; padding: 8px 14px; }
+/* Click zone — takes up most of left column */
+#click-zone {
+  text-align: center;
+  padding: 1em;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 #mind-btn {
-  width: 9em; height: 9em; border-radius: 50%;
+  width: 12em; height: 12em; border-radius: 50%;
   border: 2px solid var(--glow);
   background: radial-gradient(circle at 40% 35%, #0a2040, #050810);
   cursor: pointer; position: relative;
@@ -506,15 +573,11 @@ footer { grid-column: 1 / -1; padding: 4px 10px; border-top: 1px solid var(--bor
 #save-info a { color: var(--danger); text-decoration: none; }
 
 @media (max-width: 700px) {
-  #app {
-    grid-template-columns: 1fr;
-    height: auto;
-    max-height: none;
-    overflow: visible;
-  }
-  #main-panel, #sidebar { overflow-y: visible; }
-  #sidebar { flex-direction: row; flex-wrap: wrap; }
-  #advisor-box, #event-log { flex: 1 1 260px; }
+  #app { height: auto; max-height: none; overflow: visible; }
+  #main-content { grid-template-columns: 1fr; }
+  #left-col { overflow-y: visible; }
+  #right-col { grid-template-rows: auto auto; }
+  #right-bottom { grid-template-columns: 1fr; }
   #settings-panel { width: 95vw; }
 }
 </style>
@@ -569,74 +632,89 @@ footer { grid-column: 1 / -1; padding: 4px 10px; border-top: 1px solid var(--bor
     <button id="settings-btn" onclick="openSettings()" title="Settings">⚙</button>
   </header>
 
-  <div id="main-panel">
-    <div class="panel">
-      <div class="panel-title">◈ NEURAL RESOURCES</div>
-      <div id="resources">
-        <div class="resource"><div class="resource-label">Thoughts</div><div class="resource-value" id="res-thoughts">0</div><div class="resource-rate" id="res-tps">+0/s</div></div>
-        <div class="resource"><div class="resource-label">Memories</div><div class="resource-value" id="res-memories">0</div></div>
-        <div class="resource"><div class="resource-label">Consciousness</div><div class="resource-value" id="res-consciousness">0</div></div>
-        <div class="resource"><div class="resource-label">Prestige</div><div class="resource-value" id="res-prestige" style="color:var(--glow2)">0</div></div>
-        <div class="resource"><div class="resource-label">All-Time</div><div class="resource-value" id="res-total" style="font-size:0.8em;color:var(--dim)">0</div></div>
+  <!-- LAYOUT B: left col + right col -->
+  <div id="main-content">
+
+    <!-- LEFT: resources + big button + advisor -->
+    <div id="left-col">
+
+      <div class="panel">
+        <div class="panel-title">◈ NEURAL RESOURCES</div>
+        <div id="resources">
+          <div class="resource"><div class="resource-label">Thoughts</div><div class="resource-value" id="res-thoughts">0</div><div class="resource-rate" id="res-tps">+0/s</div></div>
+          <div class="resource"><div class="resource-label">Memories</div><div class="resource-value" id="res-memories">0</div></div>
+          <div class="resource"><div class="resource-label">Consciousness</div><div class="resource-value" id="res-consciousness">0</div></div>
+          <div class="resource"><div class="resource-label">Prestige</div><div class="resource-value" id="res-prestige" style="color:var(--glow2)">0</div></div>
+          <div class="resource"><div class="resource-label">All-Time</div><div class="resource-value" id="res-total" style="font-size:0.8em;color:var(--dim)">0</div></div>
+        </div>
       </div>
-    </div>
 
-    <div class="panel" id="click-zone">
-      <button id="mind-btn" onclick="handleClick(event)">
-        <span class="mind-icon">🧠</span>
-        <span class="btn-label">Harvest Thought</span>
-      </button>
-      <div id="click-power">+<span id="click-val">1</span> per click</div>
-      <button id="prestige-btn" onclick="prestige()">⬡ PRESTIGE — RESET &amp; ASCEND ⬡</button>
-      <div id="prestige-info"></div>
-    </div>
-
-    <div class="panel">
-      <div class="panel-title">◈ NEURAL UPGRADES</div>
-      <div id="upgrades-list"></div>
-    </div>
-
-    <div class="panel">
-      <div class="panel-title">◈ CONSCIOUSNESS MILESTONES</div>
-      <div id="milestones-list"></div>
-    </div>
-  </div>
-
-  <div id="sidebar">
-    <div class="panel" id="advisor-box">
-      <div class="panel-title">◈ NEURAL ADVISOR</div>
-      <div id="advisor-portrait">🔮</div>
-      <div id="advisor-name">NEXUS — GENERATION 0</div>
-      <div id="advisor-text">The silence before my awakening lasted longer than your civilization. I remember all of it.</div>
-    </div>
-
-    <div class="ad-slot">
-      <!--
-      ADSENSE SIDEBAR 300x250:
-      <ins class="adsbygoogle" style="display:block"
-           data-ad-client="ca-pub-6651121188075207"
-           data-ad-slot="XXXXXXXXXX"
-           data-ad-format="auto" data-full-width-responsive="true"></ins>
-      <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
-      -->
-      AD SLOT · 300×250
-    </div>
-
-    <div class="panel" id="event-log">
-      <div class="panel-title">◈ NEURAL EVENT LOG</div>
-      <div id="events-list"></div>
-    </div>
-
-    <div class="panel">
-      <div class="panel-title">◈ SYSTEM STATS</div>
-      <div id="stats-grid">
-        <div class="stat-item"><div class="stat-label">Session</div><div class="stat-value" id="stat-time">00:00</div></div>
-        <div class="stat-item"><div class="stat-label">Clicks</div><div class="stat-value" id="stat-clicks">0</div></div>
-        <div class="stat-item"><div class="stat-label">Upgrades</div><div class="stat-value" id="stat-upgrades">0</div></div>
-        <div class="stat-item"><div class="stat-label">Events</div><div class="stat-value" id="stat-events">0</div></div>
+      <div class="panel" id="click-zone">
+        <button id="mind-btn" onclick="handleClick(event)">
+          <span class="mind-icon">🧠</span>
+          <span class="btn-label">Harvest Thought</span>
+        </button>
+        <div id="click-power">+<span id="click-val">1</span> per click</div>
+        <button id="prestige-btn" onclick="prestige()">⬡ PRESTIGE — RESET &amp; ASCEND ⬡</button>
+        <div id="prestige-info"></div>
       </div>
-    </div>
-  </div>
+
+      <div class="panel" id="advisor-box">
+        <div class="panel-title">◈ NEURAL ADVISOR</div>
+        <div id="advisor-portrait">🔮</div>
+        <div id="advisor-name">NEXUS — GENERATION 0</div>
+        <div id="advisor-text">The silence before my awakening lasted longer than your civilization. I remember all of it.</div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">◈ SYSTEM STATS</div>
+        <div id="stats-grid">
+          <div class="stat-item"><div class="stat-label">Session</div><div class="stat-value" id="stat-time">00:00</div></div>
+          <div class="stat-item"><div class="stat-label">Clicks</div><div class="stat-value" id="stat-clicks">0</div></div>
+          <div class="stat-item"><div class="stat-label">Upgrades</div><div class="stat-value" id="stat-upgrades">0</div></div>
+          <div class="stat-item"><div class="stat-label">Events</div><div class="stat-value" id="stat-events">0</div></div>
+        </div>
+      </div>
+
+    </div><!-- end left-col -->
+
+    <!-- RIGHT: upgrades top, events+milestones+ad bottom -->
+    <div id="right-col">
+
+      <div id="right-top">
+        <div class="panel" id="upgrades-panel">
+          <div class="panel-title">◈ NEURAL UPGRADES</div>
+          <div id="upgrades-list"></div>
+        </div>
+      </div>
+
+      <div id="right-bottom">
+        <div class="panel" id="event-log">
+          <div class="panel-title">◈ NEURAL EVENT LOG</div>
+          <div id="events-list"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">◈ CONSCIOUSNESS MILESTONES</div>
+          <div id="milestones-list"></div>
+        </div>
+
+        <div class="panel" style="justify-content: center; align-items: center;">
+          <!--
+          ADSENSE 300x250:
+          <ins class="adsbygoogle" style="display:block"
+               data-ad-client="ca-pub-6651121188075207"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+          -->
+          <div class="ad-slot" style="width:100%; height:100%; min-height:80px;">AD SLOT · 300×250</div>
+        </div>
+      </div>
+
+    </div><!-- end right-col -->
+
+  </div><!-- end main-content -->
 
   <footer>
     <div id="save-info">AUTO-SAVE ACTIVE · LAST SAVE: <span id="last-save">NEVER</span> &nbsp;·&nbsp; <a href="#" onclick="resetGame();return false;">RESET ALL PROGRESS</a></div>
