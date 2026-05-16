@@ -89,18 +89,18 @@ body::before {
 #app {
   position: relative; z-index: 1;
   max-width: 1100px; margin: 0 auto;
-  padding: 10px;
+  padding: 6px;
   display: grid;
-  grid-template-columns: 1fr 320px;
+  grid-template-columns: 1fr 300px;
   grid-template-rows: auto 1fr auto;
-  gap: 10px;
+  gap: 6px;
   min-height: 100vh;
 }
 
 header {
   grid-column: 1 / -1;
   text-align: center;
-  padding: 16px;
+  padding: 10px;
   border-bottom: 1px solid var(--border);
   position: relative;
 }
@@ -114,7 +114,7 @@ header {
   border: 1px solid var(--border);
   border-radius: 4px;
   color: var(--dim);
-  font-size: 1.3rem;
+  font-size: 1.3em;
   cursor: pointer;
   padding: 6px 10px;
   transition: border-color 0.2s, color 0.2s, transform 0.3s;
@@ -125,7 +125,7 @@ header {
 
 h1 {
   font-family: 'Orbitron', sans-serif;
-  font-size: clamp(1.2rem, 4vw, 2rem);
+  font-size: clamp(1.2em, 4vw, 2em);
   font-weight: 900;
   letter-spacing: 0.15em;
   color: var(--glow);
@@ -136,7 +136,7 @@ h1 {
   0%,100% { text-shadow: 0 0 20px var(--glow), 0 0 40px var(--glow2); }
   50%      { text-shadow: 0 0 40px var(--glow), 0 0 80px var(--glow2), 0 0 120px var(--glow2); }
 }
-#tagline { font-size: 0.7rem; color: var(--dim); margin-top: 4px; letter-spacing: 0.2em; }
+#tagline { font-size: 0.7em; color: var(--dim); margin-top: 4px; letter-spacing: 0.2em; }
 
 /* SETTINGS PANEL */
 #settings-overlay {
@@ -170,7 +170,7 @@ h1 {
   position: absolute;
   top: 12px; right: 16px;
   background: none; border: none;
-  color: var(--dim); font-size: 1.4rem;
+  color: var(--dim); font-size: 1.4em;
   cursor: pointer; line-height: 1;
   transition: color 0.2s;
 }
@@ -178,7 +178,7 @@ h1 {
 
 .settings-title {
   font-family: 'Orbitron', sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.75em;
   letter-spacing: 0.2em;
   color: var(--glow);
   margin-bottom: 20px;
@@ -193,7 +193,7 @@ h1 {
 .settings-section:last-child { border-bottom: none; margin-bottom: 0; }
 
 .settings-label {
-  font-size: 0.65rem;
+  font-size: 0.65em;
   color: var(--dim);
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -214,7 +214,7 @@ h1 {
   background: transparent;
   color: var(--text);
   font-family: 'Share Tech Mono', monospace;
-  font-size: 0.7rem;
+  font-size: 0.7em;
   cursor: pointer;
   transition: all 0.2s;
   letter-spacing: 0.1em;
@@ -269,7 +269,7 @@ h1 {
   margin-bottom: 8px;
   border-radius: 3px;
   font-family: 'Share Tech Mono', monospace;
-  font-size: 0.7rem;
+  font-size: 0.7em;
   letter-spacing: 0.1em;
   cursor: pointer;
   transition: all 0.2s;
@@ -290,7 +290,7 @@ h1 {
 #upload-input { display: none; }
 
 .save-note {
-  font-size: 0.58rem;
+  font-size: 0.58em;
   color: var(--dim);
   margin-top: 6px;
   line-height: 1.5;
@@ -305,7 +305,7 @@ h1 {
   border: 1px solid var(--glow);
   border-radius: 4px;
   padding: 10px 20px;
-  font-size: 0.7rem;
+  font-size: 0.7em;
   color: var(--glow);
   z-index: 3000;
   opacity: 0;
@@ -322,7 +322,7 @@ h1 {
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: 4px;
-  padding: 16px;
+  padding: 10px 14px;
   position: relative;
   overflow: hidden;
   transition: background 0.3s, border-color 0.3s;
@@ -350,9 +350,9 @@ h1 {
 .resource-rate { font-size: 0.6em; color: var(--green); }
 
 /* CLICK BUTTON */
-#click-zone { text-align: center; padding: 20px 16px; }
+#click-zone { text-align: center; padding: 10px 14px; }
 #mind-btn {
-  width: 160px; height: 160px; border-radius: 50%;
+  width: 130px; height: 130px; border-radius: 50%;
   border: 2px solid var(--glow);
   background: radial-gradient(circle at 40% 35%, #0a2040, #050810);
   cursor: pointer; position: relative;
@@ -364,15 +364,15 @@ h1 {
 body.light-mode #mind-btn { background: radial-gradient(circle at 40% 35%, #d0e8f8, #eef2f8); }
 #mind-btn:hover { box-shadow: 0 0 60px rgba(0,212,255,0.4), inset 0 0 40px rgba(0,212,255,0.1); }
 #mind-btn:active { transform: scale(0.94); box-shadow: 0 0 80px rgba(0,212,255,0.6), inset 0 0 60px rgba(0,212,255,0.2); }
-.mind-icon { font-size: 2.5rem; line-height: 1; animation: rotate-slow 20s linear infinite; }
+.mind-icon { font-size: 2.5em; line-height: 1; animation: rotate-slow 20s linear infinite; }
 @keyframes rotate-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-#mind-btn .btn-label { font-family: 'Orbitron', sans-serif; font-size: 0.55rem; letter-spacing: 0.2em; color: var(--glow); text-transform: uppercase; }
-#click-power { margin-top: 8px; font-size: 0.65rem; color: var(--dim); }
+#mind-btn .btn-label { font-family: 'Orbitron', sans-serif; font-size: 0.55em; letter-spacing: 0.2em; color: var(--glow); text-transform: uppercase; }
+#click-power { margin-top: 8px; font-size: 0.65em; color: var(--dim); }
 
 .float-num {
   position: fixed;
   font-family: 'Orbitron', sans-serif;
-  font-size: 1rem; color: var(--glow);
+  font-size: 1em; color: var(--glow);
   text-shadow: 0 0 10px var(--glow);
   pointer-events: none;
   animation: float-up 1.2s ease-out forwards;
@@ -415,7 +415,7 @@ body.light-mode .upgrade-btn { background: rgba(200,220,240,0.4); }
   border: 1px solid var(--glow2);
   background: radial-gradient(circle, #200040, #050810);
   display: flex; align-items: center; justify-content: center;
-  font-size: 1.5rem; margin-bottom: 10px;
+  font-size: 1.5em; margin-bottom: 10px;
   animation: adv-glow 4s ease-in-out infinite;
 }
 @keyframes adv-glow { 0%,100% { box-shadow: 0 0 15px rgba(123,47,255,0.4); } 50% { box-shadow: 0 0 30px rgba(123,47,255,0.8); } }
@@ -463,11 +463,11 @@ body.light-mode .upgrade-btn { background: rgba(200,220,240,0.4); }
   background: linear-gradient(135deg, #2a0040, #400020);
   border: 1px solid var(--glow2); border-radius: 3px;
   color: var(--glow2); font-family: 'Orbitron', sans-serif;
-  font-size: 0.65rem; letter-spacing: 0.15em; cursor: pointer;
+  font-size: 0.65em; letter-spacing: 0.15em; cursor: pointer;
   transition: all 0.2s; display: none;
 }
 #prestige-btn:hover { background: linear-gradient(135deg, #3a0060, #600030); box-shadow: 0 0 20px rgba(123,47,255,0.4); }
-#prestige-info { font-size: 0.6rem; color: var(--dim); margin-top: 6px; text-align: center; }
+#prestige-info { font-size: 0.6em; color: var(--dim); margin-top: 6px; text-align: center; }
 
 /* AD SLOTS */
 .ad-slot {
@@ -475,12 +475,12 @@ body.light-mode .upgrade-btn { background: rgba(200,220,240,0.4); }
   background: rgba(255,255,255,0.02);
   border: 1px dashed var(--border);
   display: flex; align-items: center; justify-content: center;
-  color: var(--dim); font-size: 0.6rem; letter-spacing: 0.1em;
+  color: var(--dim); font-size: 0.6em; letter-spacing: 0.1em;
   border-radius: 2px;
 }
 
 footer { grid-column: 1 / -1; padding: 10px; border-top: 1px solid var(--border); text-align: center; }
-#save-info { font-size: 0.55rem; color: var(--dim); margin-top: 6px; }
+#save-info { font-size: 0.55em; color: var(--dim); margin-top: 6px; }
 #save-info a { color: var(--danger); text-decoration: none; }
 
 @media (max-width: 700px) {
@@ -549,7 +549,7 @@ footer { grid-column: 1 / -1; padding: 10px; border-top: 1px solid var(--border)
         <div class="resource"><div class="resource-label">Memories</div><div class="resource-value" id="res-memories">0</div></div>
         <div class="resource"><div class="resource-label">Consciousness</div><div class="resource-value" id="res-consciousness">0</div></div>
         <div class="resource"><div class="resource-label">Prestige</div><div class="resource-value" id="res-prestige" style="color:var(--glow2)">0</div></div>
-        <div class="resource"><div class="resource-label">All-Time</div><div class="resource-value" id="res-total" style="font-size:0.8rem;color:var(--dim)">0</div></div>
+        <div class="resource"><div class="resource-label">All-Time</div><div class="resource-value" id="res-total" style="font-size:0.8em;color:var(--dim)">0</div></div>
       </div>
     </div>
 
@@ -707,6 +707,7 @@ function loadTheme() {
 // ---- TEXT SIZE ----
 function applyTextSize(px) {
   px = parseInt(px);
+  document.documentElement.style.fontSize = px + 'px';
   document.body.style.fontSize = px + 'px';
   localStorage.setItem('deepmind_fontsize', px);
   const slider = document.getElementById('text-size-slider');
