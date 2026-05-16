@@ -344,7 +344,7 @@ h1 {
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: 4px;
-  padding: 10px 14px;
+  padding: 0.7em 1em;
   position: relative;
   overflow: hidden;
   transition: background 0.3s, border-color 0.3s;
@@ -365,16 +365,16 @@ h1 {
 }
 
 /* RESOURCES */
-#resources { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
-.resource { display: flex; flex-direction: column; gap: 2px; }
-.resource-label { font-size: 0.6em; color: var(--dim); letter-spacing: 0.15em; text-transform: uppercase; }
-.resource-value { font-family: 'Orbitron', sans-serif; font-size: 1.1em; font-weight: 700; color: var(--glow); text-shadow: 0 0 10px var(--glow); }
-.resource-rate { font-size: 0.6em; color: var(--green); }
+#resources { display: flex; gap: 16px; flex-wrap: wrap; align-items: flex-start; }
+.resource { display: flex; flex-direction: column; gap: 2px; min-width: 60px; }
+.resource-label { font-size: 0.65em; color: var(--dim); letter-spacing: 0.15em; text-transform: uppercase; }
+.resource-value { font-family: 'Orbitron', sans-serif; font-size: 1.2em; font-weight: 700; color: var(--glow); text-shadow: 0 0 10px var(--glow); }
+.resource-rate { font-size: 0.65em; color: var(--green); }
 
 /* CLICK BUTTON */
 #click-zone { text-align: center; padding: 8px 14px; }
 #mind-btn {
-  width: 150px; height: 150px; border-radius: 50%;
+  width: 9em; height: 9em; border-radius: 50%;
   border: 2px solid var(--glow);
   background: radial-gradient(circle at 40% 35%, #0a2040, #050810);
   cursor: pointer; position: relative;
@@ -433,7 +433,7 @@ body.light-mode .upgrade-btn { background: rgba(200,220,240,0.4); }
 
 /* SIDEBAR */
 #advisor-portrait {
-  width: 48px; height: 48px; border-radius: 50%;
+  width: 3em; height: 3em; border-radius: 50%;
   border: 1px solid var(--glow2);
   background: radial-gradient(circle, #200040, #050810);
   display: flex; align-items: center; justify-content: center;
@@ -501,7 +501,7 @@ body.light-mode .upgrade-btn { background: rgba(200,220,240,0.4); }
   border-radius: 2px;
 }
 
-footer { grid-column: 1 / -1; padding: 6px 10px; border-top: 1px solid var(--border); text-align: center; overflow: hidden; }
+footer { grid-column: 1 / -1; padding: 4px 10px; border-top: 1px solid var(--border); text-align: center; }
 #save-info { font-size: 0.55em; color: var(--dim); margin-top: 6px; }
 #save-info a { color: var(--danger); text-decoration: none; }
 
@@ -639,17 +639,6 @@ footer { grid-column: 1 / -1; padding: 6px 10px; border-top: 1px solid var(--bor
   </div>
 
   <footer>
-    <div class="ad-slot" style="margin-bottom:8px">
-      <!--
-      ADSENSE LEADERBOARD 728x90:
-      <ins class="adsbygoogle" style="display:block"
-           data-ad-client="ca-pub-6651121188075207"
-           data-ad-slot="XXXXXXXXXX"
-           data-ad-format="auto" data-full-width-responsive="true"></ins>
-      <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
-      -->
-      AD SLOT · 728×90 LEADERBOARD
-    </div>
     <div id="save-info">AUTO-SAVE ACTIVE · LAST SAVE: <span id="last-save">NEVER</span> &nbsp;·&nbsp; <a href="#" onclick="resetGame();return false;">RESET ALL PROGRESS</a></div>
   </footer>
 </div>
