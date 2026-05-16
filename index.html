@@ -55,12 +55,6 @@ body.light-mode #scanline { display: none; }
 /* Font scale — controlled by slider */
 body { font-size: 15px; }
 
-/* Base text bumped up for readability */
-.upgrade-name { font-size: 0.95em; color: var(--glow); }
-.upgrade-desc { font-size: 0.8em; color: #8aaccc; grid-column: 1; line-height: 1.5; }
-.upgrade-owned { font-size: 0.8em; color: #8aaccc; text-align: right; }
-.upgrade-cost { font-family: 'Orbitron', sans-serif; font-size: 0.85em; color: var(--gold); text-align: right; }
-
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
@@ -409,10 +403,10 @@ body.light-mode .upgrade-btn { background: rgba(200,220,240,0.4); }
 .upgrade-btn:hover { border-color: var(--glow); background: rgba(0,212,255,0.05); }
 .upgrade-btn.affordable { border-color: rgba(0,212,255,0.5); animation: aff-pulse 2s ease-in-out infinite; }
 @keyframes aff-pulse { 0%,100% { box-shadow: none; } 50% { box-shadow: 0 0 12px rgba(0,212,255,0.25); } }
-.upgrade-name { font-size: 0.8em; color: var(--glow); }
-.upgrade-desc { font-size: 0.6em; color: #8aaccc; grid-column: 1; }
-.upgrade-owned { font-size: 0.6em; color: #8aaccc; text-align: right; }
-.upgrade-cost { font-family: 'Orbitron', sans-serif; font-size: 0.7em; color: var(--gold); text-align: right; }
+.upgrade-name { font-size: 0.95em; color: var(--glow); }
+.upgrade-desc { font-size: 0.8em; color: #8aaccc; grid-column: 1; line-height: 1.5; }
+.upgrade-owned { font-size: 0.8em; color: #8aaccc; text-align: right; }
+.upgrade-cost { font-family: 'Orbitron', sans-serif; font-size: 0.85em; color: var(--gold); text-align: right; }
 
 /* SIDEBAR */
 #sidebar { display: flex; flex-direction: column; gap: 10px; }
