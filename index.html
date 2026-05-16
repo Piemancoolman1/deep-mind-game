@@ -53,9 +53,13 @@ body.light-mode body::before { display: none; }
 body.light-mode #scanline { display: none; }
 
 /* Font scale — controlled by slider */
-body { font-size: 15px; }
+body { font-size: 16px; }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+}
 
 body {
   background: var(--bg);
@@ -88,19 +92,21 @@ body::before {
 /* LAYOUT */
 #app {
   position: relative; z-index: 1;
-  max-width: 1100px; margin: 0 auto;
-  padding: 6px;
+  max-width: 1400px; margin: 0 auto;
+  padding: 8px;
   display: grid;
-  grid-template-columns: 1fr 300px;
+  grid-template-columns: 1fr 360px;
   grid-template-rows: auto 1fr auto;
-  gap: 6px;
-  min-height: 100vh;
+  gap: 8px;
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
 }
 
 header {
   grid-column: 1 / -1;
   text-align: center;
-  padding: 10px;
+  padding: 8px;
   border-bottom: 1px solid var(--border);
   position: relative;
 }
@@ -316,7 +322,23 @@ h1 {
 #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
 /* PANELS */
-#main-panel { display: flex; flex-direction: column; gap: 10px; }
+#main-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+#sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
 
 .panel {
   background: var(--panel);
@@ -350,9 +372,9 @@ h1 {
 .resource-rate { font-size: 0.6em; color: var(--green); }
 
 /* CLICK BUTTON */
-#click-zone { text-align: center; padding: 10px 14px; }
+#click-zone { text-align: center; padding: 8px 14px; }
 #mind-btn {
-  width: 130px; height: 130px; border-radius: 50%;
+  width: 150px; height: 150px; border-radius: 50%;
   border: 2px solid var(--glow);
   background: radial-gradient(circle at 40% 35%, #0a2040, #050810);
   cursor: pointer; position: relative;
@@ -385,8 +407,8 @@ body.light-mode #mind-btn { background: radial-gradient(circle at 40% 35%, #d0e8
 
 /* UPGRADES */
 #upgrades-list {
-  display: flex; flex-direction: column; gap: 6px;
-  max-height: 290px; overflow-y: auto;
+  display: flex; flex-direction: column; gap: 5px;
+  overflow-y: auto;
   scrollbar-width: thin; scrollbar-color: var(--border) transparent;
 }
 .upgrade-btn {
@@ -409,7 +431,6 @@ body.light-mode .upgrade-btn { background: rgba(200,220,240,0.4); }
 .upgrade-cost { font-family: 'Orbitron', sans-serif; font-size: 0.85em; color: var(--gold); text-align: right; }
 
 /* SIDEBAR */
-#sidebar { display: flex; flex-direction: column; gap: 10px; }
 #advisor-portrait {
   width: 48px; height: 48px; border-radius: 50%;
   border: 1px solid var(--glow2);
@@ -479,12 +500,18 @@ body.light-mode .upgrade-btn { background: rgba(200,220,240,0.4); }
   border-radius: 2px;
 }
 
-footer { grid-column: 1 / -1; padding: 10px; border-top: 1px solid var(--border); text-align: center; }
+footer { grid-column: 1 / -1; padding: 6px 10px; border-top: 1px solid var(--border); text-align: center; overflow: hidden; }
 #save-info { font-size: 0.55em; color: var(--dim); margin-top: 6px; }
 #save-info a { color: var(--danger); text-decoration: none; }
 
 @media (max-width: 700px) {
-  #app { grid-template-columns: 1fr; }
+  #app {
+    grid-template-columns: 1fr;
+    height: auto;
+    max-height: none;
+    overflow: visible;
+  }
+  #main-panel, #sidebar { overflow-y: visible; }
   #sidebar { flex-direction: row; flex-wrap: wrap; }
   #advisor-box, #event-log { flex: 1 1 260px; }
   #settings-panel { width: 95vw; }
