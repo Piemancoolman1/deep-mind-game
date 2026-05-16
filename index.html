@@ -33,7 +33,6 @@
   --gold:   #ffd700;
   --danger: #ff4466;
   --green:  #00ff88;
-  --font-scale: 1;
 }
 
 /* Light mode overrides */
@@ -54,10 +53,10 @@ body.light-mode body::before { display: none; }
 body.light-mode #scanline { display: none; }
 
 /* Font scale */
-body { font-size: calc(14px * var(--font-scale)); }
-body.text-sm { --font-scale: 0.85; }
-body.text-md { --font-scale: 1; }
-body.text-lg { --font-scale: 1.2; }
+body { font-size: 14px; }
+body.text-sm { font-size: 11px; }
+body.text-md { font-size: 14px; }
+body.text-lg { font-size: 17px; }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -282,39 +281,6 @@ h1 {
   line-height: 1.5;
 }
 
-/* ENCRYPTION KEY */
-.key-wrap {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-}
-.key-input {
-  flex: 1;
-  background: rgba(0,0,0,0.3);
-  border: 1px solid var(--border);
-  border-radius: 3px;
-  color: var(--text);
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.7rem;
-  padding: 7px 10px;
-  outline: none;
-  transition: border-color 0.2s;
-}
-.key-input:focus { border-color: var(--glow); }
-.key-save-btn {
-  padding: 7px 12px;
-  background: rgba(123,47,255,0.15);
-  border: 1px solid var(--glow2);
-  border-radius: 3px;
-  color: var(--glow2);
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.65rem;
-  cursor: pointer;
-  transition: all 0.2s;
-  white-space: nowrap;
-}
-.key-save-btn:hover { background: rgba(123,47,255,0.3); }
-
 /* TOAST */
 #toast {
   position: fixed;
@@ -354,7 +320,7 @@ h1 {
 }
 .panel-title {
   font-family: 'Orbitron', sans-serif;
-  font-size: 0.62rem;
+  font-size: 0.62em;
   letter-spacing: 0.2em;
   color: var(--dim);
   margin-bottom: 12px;
@@ -364,9 +330,9 @@ h1 {
 /* RESOURCES */
 #resources { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
 .resource { display: flex; flex-direction: column; gap: 2px; }
-.resource-label { font-size: 0.6rem; color: var(--dim); letter-spacing: 0.15em; text-transform: uppercase; }
-.resource-value { font-family: 'Orbitron', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--glow); text-shadow: 0 0 10px var(--glow); }
-.resource-rate { font-size: 0.6rem; color: var(--green); }
+.resource-label { font-size: 0.6em; color: var(--dim); letter-spacing: 0.15em; text-transform: uppercase; }
+.resource-value { font-family: 'Orbitron', sans-serif; font-size: 1.1em; font-weight: 700; color: var(--glow); text-shadow: 0 0 10px var(--glow); }
+.resource-rate { font-size: 0.6em; color: var(--green); }
 
 /* CLICK BUTTON */
 #click-zone { text-align: center; padding: 20px 16px; }
@@ -422,10 +388,10 @@ body.light-mode .upgrade-btn { background: rgba(200,220,240,0.4); }
 .upgrade-btn:hover { border-color: var(--glow); background: rgba(0,212,255,0.05); }
 .upgrade-btn.affordable { border-color: rgba(0,212,255,0.5); animation: aff-pulse 2s ease-in-out infinite; }
 @keyframes aff-pulse { 0%,100% { box-shadow: none; } 50% { box-shadow: 0 0 12px rgba(0,212,255,0.25); } }
-.upgrade-name { font-size: 0.8rem; color: var(--glow); }
-.upgrade-desc { font-size: 0.6rem; color: var(--dim); grid-column: 1; }
-.upgrade-owned { font-size: 0.6rem; color: var(--dim); text-align: right; }
-.upgrade-cost { font-family: 'Orbitron', sans-serif; font-size: 0.7rem; color: var(--gold); text-align: right; }
+.upgrade-name { font-size: 0.8em; color: var(--glow); }
+.upgrade-desc { font-size: 0.6em; color: var(--dim); grid-column: 1; }
+.upgrade-owned { font-size: 0.6em; color: var(--dim); text-align: right; }
+.upgrade-cost { font-family: 'Orbitron', sans-serif; font-size: 0.7em; color: var(--gold); text-align: right; }
 
 /* SIDEBAR */
 #sidebar { display: flex; flex-direction: column; gap: 10px; }
@@ -438,8 +404,8 @@ body.light-mode .upgrade-btn { background: rgba(200,220,240,0.4); }
   animation: adv-glow 4s ease-in-out infinite;
 }
 @keyframes adv-glow { 0%,100% { box-shadow: 0 0 15px rgba(123,47,255,0.4); } 50% { box-shadow: 0 0 30px rgba(123,47,255,0.8); } }
-#advisor-name { font-family: 'Orbitron', sans-serif; font-size: 0.6rem; color: var(--glow2); letter-spacing: 0.15em; margin-bottom: 8px; }
-#advisor-text { font-size: 0.72rem; color: var(--text); line-height: 1.6; min-height: 60px; transition: opacity 0.4s; }
+#advisor-name { font-family: 'Orbitron', sans-serif; font-size: 0.6em; color: var(--glow2); letter-spacing: 0.15em; margin-bottom: 8px; }
+#advisor-text { font-size: 0.72em; color: var(--text); line-height: 1.6; min-height: 60px; transition: opacity 0.4s; }
 
 /* EVENT LOG */
 #events-list {
@@ -448,7 +414,7 @@ body.light-mode .upgrade-btn { background: rgba(200,220,240,0.4); }
   display: flex; flex-direction: column; gap: 6px;
 }
 .event-entry {
-  font-size: 0.65rem; padding: 8px;
+  font-size: 0.65em; padding: 8px;
   border-left: 2px solid var(--glow2);
   background: rgba(123,47,255,0.05);
   border-radius: 0 2px 2px 0;
@@ -458,12 +424,12 @@ body.light-mode .upgrade-btn { background: rgba(200,220,240,0.4); }
 @keyframes ev-in { from { opacity:0; transform:translateX(-10px); } to { opacity:1; transform:translateX(0); } }
 .event-entry.positive { border-color: var(--green); background: rgba(0,255,136,0.05); }
 .event-entry.negative { border-color: var(--danger); background: rgba(255,68,102,0.05); }
-.event-time { color: var(--dim); font-size: 0.55rem; margin-bottom: 2px; }
+.event-time { color: var(--dim); font-size: 0.55em; margin-bottom: 2px; }
 
 /* MILESTONES */
 #milestones-list { display: flex; flex-direction: column; gap: 6px; }
 .milestone {
-  font-size: 0.65rem; padding: 6px 8px;
+  font-size: 0.65em; padding: 6px 8px;
   border: 1px solid var(--border); border-radius: 2px;
   opacity: 0.35; transition: opacity 0.5s, border-color 0.5s;
 }
@@ -472,9 +438,9 @@ body.light-mode .upgrade-btn { background: rgba(200,220,240,0.4); }
 
 /* STATS */
 #stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.stat-item { font-size: 0.62rem; }
+.stat-item { font-size: 0.62em; }
 .stat-label { color: var(--dim); }
-.stat-value { color: var(--text); font-family: 'Orbitron', sans-serif; font-size: 0.7rem; }
+.stat-value { color: var(--text); font-family: 'Orbitron', sans-serif; font-size: 0.7em; }
 
 /* PRESTIGE */
 #prestige-btn {
@@ -545,16 +511,6 @@ footer { grid-column: 1 / -1; padding: 10px; border-top: 1px solid var(--border)
       <button class="save-btn upload" onclick="document.getElementById('upload-input').click()">⬆ UPLOAD SAVE FILE</button>
       <input type="file" id="upload-input" accept=".deepmind" onchange="uploadSave(event)">
       <div class="save-note">Save files are encoded and cannot be manually edited. Use these to back up your progress or transfer between devices.</div>
-    </div>
-
-    <!-- ENCRYPTION KEY -->
-    <div class="settings-section">
-      <span class="settings-label">Save Encryption Key</span>
-      <div class="key-wrap">
-        <input type="password" class="key-input" id="enc-key-input" placeholder="Enter your secret key..." maxlength="64">
-        <button class="key-save-btn" onclick="saveEncKey()">SET KEY</button>
-      </div>
-      <div class="save-note">Set a personal key to encrypt your save files. Keep this safe — you need it to load your saves. Default key is used if left blank.</div>
     </div>
 
   </div>
@@ -663,8 +619,8 @@ footer { grid-column: 1 / -1; padding: 10px; border-top: 1px solid var(--border)
 // ============================================================
 
 // ---- ENCRYPTION KEY ----
-// Change this to your own secret key for production.
-// Players can also set their own key in Settings.
+// Change DEFAULT_ENC_KEY to your own secret before publishing.
+// This is the only key — players cannot change it.
 const DEFAULT_ENC_KEY = 'DEEPMIND_SECRET_2024_CHANGE_ME';
 
 function getEncKey() {
@@ -710,9 +666,6 @@ function decodeSave(str) {
 function openSettings() {
   document.getElementById('settings-overlay').classList.add('open');
   document.getElementById('settings-btn').classList.add('open');
-  // Load current key display
-  const key = localStorage.getItem('deepmind_enckey') || '';
-  document.getElementById('enc-key-input').value = key;
 }
 
 function closeSettings() {
@@ -750,18 +703,6 @@ function setTextSize(size) {
 function loadTextSize() {
   const s = localStorage.getItem('deepmind_textsize') || 'md';
   setTextSize(s);
-}
-
-// ---- ENCRYPTION KEY ----
-function saveEncKey() {
-  const val = document.getElementById('enc-key-input').value.trim();
-  if (val) {
-    localStorage.setItem('deepmind_enckey', val);
-    showToast('🔐 Encryption key saved');
-  } else {
-    localStorage.removeItem('deepmind_enckey');
-    showToast('🔐 Using default encryption key');
-  }
 }
 
 // ---- DOWNLOAD SAVE ----
